@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36109.1 d17.14
+VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResearchProjectManagement_SE182642", "ResearchProjectManagement_SE182642\ResearchProjectManagement_SE182642.csproj", "{0132CB61-C513-4AF5-9448-26B50C9A2549}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResearchProjectManagement.BLL", "ResearchProjectManagement.BLL\ResearchProjectManagement.BLL.csproj", "{0306F84D-D66D-4D58-A178-56747EDABB6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResearchProjectManagement.DAL", "ResearchProjectManagement.DAL\ResearchProjectManagement.DAL.csproj", "{108B6765-068C-4EFC-8CDB-DA6CA809E38A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

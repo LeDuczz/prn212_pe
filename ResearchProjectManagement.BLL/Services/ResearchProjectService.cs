@@ -20,16 +20,6 @@ namespace ResearchProjectManagement.BLL.Services
 
         public void CreateResearchProject(ResearchProject researchProject)
         {
-            if (researchProject.StartDate >= researchProject.EndDate)
-            {
-                throw new ArgumentException("StartDate must be earlier than EndDate.");
-            }
-
-            if (researchProject.ProjectTitle.Length < 5 || researchProject.ProjectTitle.Length > 100)
-            {
-                throw new ArgumentException("ProjectTitle must be between 5 and 100 characters.");
-            }
-
             _researchProjectRepository.CreateResearchProject(researchProject);
         }
 
@@ -50,16 +40,6 @@ namespace ResearchProjectManagement.BLL.Services
 
         public void UpdateResearchService(ResearchProject researchProject)
         {
-            if (researchProject.StartDate >= researchProject.EndDate)
-            {
-                throw new ArgumentException("StartDate must be earlier than EndDate.");
-            }
-
-            if (researchProject.ProjectTitle.Length < 5 || researchProject.ProjectTitle.Length > 100)
-            {
-                throw new ArgumentException("ProjectTitle must be between 5 and 100 characters.");
-            }
-
             _researchProjectRepository.UpdateResearchProject(researchProject);
         }
     }

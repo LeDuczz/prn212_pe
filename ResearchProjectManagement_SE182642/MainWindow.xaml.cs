@@ -58,6 +58,57 @@ namespace ResearchProjectManagement_SE182642
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            string projectTitle = txtProjectTitle.Text.Trim();
+            string researchField = txtResearchField.Text.Trim();
+            string startDateText = txtStartDate.Text.Trim();
+            string endDateText = txtEndDate.Text.Trim();
+            string budgetText = txtBudget.Text.Trim();
+
+            if (string.IsNullOrEmpty(projectTitle) ||
+                string.IsNullOrEmpty(researchField) ||
+                string.IsNullOrEmpty(startDateText) ||
+                string.IsNullOrEmpty(endDateText) ||
+                string.IsNullOrEmpty(budgetText) ||
+                cbxFullName.SelectedValue == null)
+            {
+                MessageBox.Show("All fields are required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            DateOnly startDate = DateOnly.Parse(startDateText);
+            DateOnly endDate = DateOnly.Parse(endDateText);
+
+            if (startDate >= endDate)
+            {
+                MessageBox.Show("StartDate must be earlier than EndDate.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (projectTitle.Length < 5 || projectTitle.Length > 100)
+            {
+                MessageBox.Show("ProjectTitle must be between 5 and 100 characters.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            char firstChar = projectTitle[0];
+            if (!char.IsUpper(firstChar) && !char.IsDigit(firstChar))
+            {
+                MessageBox.Show("ProjectTitle must start with a capital letter or a digit (1-9).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            char[] invalidChars = new[] { '$', '%', '^', '@' };
+            foreach (char c in invalidChars)
+            {
+                if (projectTitle.Contains(c))
+                {
+                    MessageBox.Show("ProjectTitle cannot contain special characters such as $, %, ^, @.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+
+            decimal budget = decimal.Parse(budgetText);
+            int leadResearcherId = (int)cbxFullName.SelectedValue;
             ResearchProject researchProject = new ResearchProject()
             {
                 ProjectId = ((ResearchProject)dgResearchProject.SelectedItem).ProjectId,
@@ -68,23 +119,79 @@ namespace ResearchProjectManagement_SE182642
                 LeadResearcherId = (int)cbxFullName.SelectedValue,
                 Budget = decimal.Parse(txtBudget.Text),
             };
+
             _researchProjectService.UpdateResearchService(researchProject);
+            MessageBox.Show("Project updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             LoadResearchProject();
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            ResearchProject researchProject = new ResearchProject()
+            string projectTitle = txtProjectTitle.Text.Trim();
+            string researchField = txtResearchField.Text.Trim();
+            string startDateText = txtStartDate.Text.Trim();
+            string endDateText = txtEndDate.Text.Trim();
+            string budgetText = txtBudget.Text.Trim();
+
+            if (string.IsNullOrEmpty(projectTitle) ||
+                string.IsNullOrEmpty(researchField) ||
+                string.IsNullOrEmpty(startDateText) ||
+                string.IsNullOrEmpty(endDateText) ||
+                string.IsNullOrEmpty(budgetText) ||
+                cbxFullName.SelectedValue == null)
             {
-                ProjectTitle = txtProjectTitle.Text,
-                ResearchField = txtResearchField.Text,
-                StartDate = DateOnly.Parse(txtStartDate.Text),
-                EndDate = DateOnly.Parse(txtEndDate.Text),
-                LeadResearcherId = (int)cbxFullName.SelectedValue,
-                Budget = decimal.Parse(txtBudget.Text)
+                MessageBox.Show("All fields are required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            DateOnly startDate = DateOnly.Parse(startDateText);
+            DateOnly endDate = DateOnly.Parse(endDateText);
+
+            if (startDate >= endDate)
+            {
+                MessageBox.Show("StartDate must be earlier than EndDate.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (projectTitle.Length < 5 || projectTitle.Length > 100)
+            {
+                MessageBox.Show("ProjectTitle must be between 5 and 100 characters.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            char firstChar = projectTitle[0];
+            if (!char.IsUpper(firstChar) && !char.IsDigit(firstChar))
+            {
+                MessageBox.Show("ProjectTitle must start with a capital letter or a digit (1-9).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            char[] invalidChars = new[] { '$', '%', '^', '@' };
+            foreach (char c in invalidChars)
+            {
+                if (projectTitle.Contains(c))
+                {
+                    MessageBox.Show("ProjectTitle cannot contain special characters such as $, %, ^, @.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+
+            decimal budget = decimal.Parse(budgetText);
+            int leadResearcherId = (int)cbxFullName.SelectedValue;
+
+            ResearchProject researchProject = new ResearchProject
+            {
+                ProjectTitle = projectTitle,
+                ResearchField = researchField,
+                StartDate = startDate,
+                EndDate = endDate,
+                LeadResearcherId = leadResearcherId,
+                Budget = budget
             };
             _researchProjectService.CreateResearchProject(researchProject);
+            MessageBox.Show("Project created successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             LoadResearchProject();
+
         }
 
         public void LoadResearchers()
@@ -117,7 +224,6 @@ namespace ResearchProjectManagement_SE182642
                 txtEndDate.Text = researchProject.EndDate.ToString("M/d/yyyy");
                 cbxFullName.SelectedValue = researchProject.LeadResearcherId;
                 txtBudget.Text = researchProject.Budget.ToString();
-
             }
         }
     }
