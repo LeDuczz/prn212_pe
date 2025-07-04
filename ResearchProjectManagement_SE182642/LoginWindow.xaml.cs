@@ -45,7 +45,7 @@ namespace ResearchProjectManagement_SE182642
                 }
                 else
                 {
-                    MessageBox.Show("You have no permission to access this function!");
+                    MessageBox.Show("You have no permission to access this function!", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             else
