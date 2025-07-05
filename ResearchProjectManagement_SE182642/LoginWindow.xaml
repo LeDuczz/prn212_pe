@@ -10,17 +10,29 @@
         FontFamily="Tahoma" FontSize="26"
         Background="#FFF5F5DC"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="#FF6B705C"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Background" Value="#FFFFF8EB"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Background" Value="#FFB38B82 "/>
+            <Setter Property="Foreground" Value="#FFFFFFFF"/>
+        </Style>
+    </Window.Resources>
     <StackPanel>
-        <Label Content="Email:" 
-               FontFamily="Arial" FontSize="24"/>
-        <TextBox x:Name="txtEmail" Height="32"/>
+        <Label Content="Email:"/>
+        <TextBox x:Name="txtEmail"/>
 
-        <Label Content="Password:"
-               FontFamily="Arial" FontSize="24"/>
-        <PasswordBox x:Name="txtPassword" Height="32"/>
+        <Label Content="Password:"/>
+        <PasswordBox x:Name="txtPassword"/>
 
-        <Button Content="Login"
-                Padding="10"
-                Click="Button_Click" />
+        <Button Content="Login" Click="Button_Click" />
     </StackPanel>
 </Window>

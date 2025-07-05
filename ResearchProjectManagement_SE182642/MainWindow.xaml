@@ -11,6 +11,22 @@
         FontFamily="Tahoma" FontSize="13"
         Background="#FFF5F5DC"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="14"/>
+            <Setter Property="Background" Value="#FFFFF8EB"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Background" Value="#FFB38B82 "/>
+            <Setter Property="Foreground" Value="#FFFFFFFF"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#FF6B705C"/>
+        </Style>
+    </Window.Resources>
     <StackPanel>
         <DataGrid x:Name="dgResearchProject" AutoGenerateColumns="False" CanUserAddRows="False" SelectionChanged="dgResearchProject_SelectionChanged">
             <DataGrid.Columns>
@@ -24,8 +40,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="txtSearch" Width="300" Height="14" />
-            <Button x:Name="btnSearch" Content="Search" Padding="5" Click="btnSearch_Click"/>
+            <TextBox x:Name="txtSearch" Width="300"/>
+            <Button x:Name="btnSearch" Content="Search" Click="btnSearch_Click"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Content="Project Title:"/>
@@ -37,11 +53,11 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Content="Start Date:"/>
-            <TextBox x:Name="txtStartDate" Width="300"/>
+            <DatePicker x:Name="dpStartDate" Width="300"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Content="End Date:"/>
-            <TextBox x:Name="txtEndDate" Width="300"/>
+            <DatePicker x:Name="dpEndDate" Width="300"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Content="Full Name:"/>
@@ -52,9 +68,9 @@
             <TextBox x:Name="txtBudget" Width="300"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button x:Name="btnCreate" Content="Create" Margin="0.5" Click="btnCreate_Click"/>
-            <Button x:Name="btnUpdate" Content="Update" Margin="0.5" Click="btnUpdate_Click"/>
-            <Button x:Name="btnDelete" Content="Delete" Width="50" Margin="0.5" Click="btnDelete_Click"/>
+            <Button x:Name="btnCreate" Content="Create" Click="btnCreate_Click"/>
+            <Button x:Name="btnUpdate" Content="Update" Click="btnUpdate_Click"/>
+            <Button x:Name="btnDelete" Content="Delete" Click="btnDelete_Click"/>
         </StackPanel>
     </StackPanel>
 </Window>

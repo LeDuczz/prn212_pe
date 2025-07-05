@@ -60,14 +60,14 @@ namespace ResearchProjectManagement_SE182642
         {
             string projectTitle = txtProjectTitle.Text.Trim();
             string researchField = txtResearchField.Text.Trim();
-            string startDateText = txtStartDate.Text.Trim();
-            string endDateText = txtEndDate.Text.Trim();
+            DateTime? startDateValue = dpStartDate.SelectedDate;
+            DateTime? endDateValue = dpEndDate.SelectedDate;
             string budgetText = txtBudget.Text.Trim();
 
             if (string.IsNullOrEmpty(projectTitle) ||
                 string.IsNullOrEmpty(researchField) ||
-                string.IsNullOrEmpty(startDateText) ||
-                string.IsNullOrEmpty(endDateText) ||
+                !startDateValue.HasValue ||
+                !endDateValue.HasValue ||
                 string.IsNullOrEmpty(budgetText) ||
                 cbxFullName.SelectedValue == null)
             {
@@ -75,8 +75,8 @@ namespace ResearchProjectManagement_SE182642
                 return;
             }
 
-            DateOnly startDate = DateOnly.Parse(startDateText);
-            DateOnly endDate = DateOnly.Parse(endDateText);
+            DateOnly startDate = DateOnly.FromDateTime(startDateValue.Value);
+            DateOnly endDate = DateOnly.FromDateTime(endDateValue.Value);
 
             if (startDate >= endDate)
             {
@@ -112,12 +112,12 @@ namespace ResearchProjectManagement_SE182642
             ResearchProject researchProject = new ResearchProject()
             {
                 ProjectId = ((ResearchProject)dgResearchProject.SelectedItem).ProjectId,
-                ProjectTitle = txtProjectTitle.Text,
-                ResearchField = txtResearchField.Text,
-                StartDate = DateOnly.Parse(txtStartDate.Text),
-                EndDate = DateOnly.Parse(txtEndDate.Text),
-                LeadResearcherId = (int)cbxFullName.SelectedValue,
-                Budget = decimal.Parse(txtBudget.Text),
+                ProjectTitle = projectTitle,
+                ResearchField = researchField,
+                StartDate = startDate,
+                EndDate = endDate,
+                LeadResearcherId = leadResearcherId,
+                Budget = budget,
             };
 
             _researchProjectService.UpdateResearchService(researchProject);
@@ -129,14 +129,14 @@ namespace ResearchProjectManagement_SE182642
         {
             string projectTitle = txtProjectTitle.Text.Trim();
             string researchField = txtResearchField.Text.Trim();
-            string startDateText = txtStartDate.Text.Trim();
-            string endDateText = txtEndDate.Text.Trim();
+            DateTime? startDateValue = dpStartDate.SelectedDate;
+            DateTime? endDateValue = dpEndDate.SelectedDate;
             string budgetText = txtBudget.Text.Trim();
 
             if (string.IsNullOrEmpty(projectTitle) ||
                 string.IsNullOrEmpty(researchField) ||
-                string.IsNullOrEmpty(startDateText) ||
-                string.IsNullOrEmpty(endDateText) ||
+                !startDateValue.HasValue ||
+                !endDateValue.HasValue ||
                 string.IsNullOrEmpty(budgetText) ||
                 cbxFullName.SelectedValue == null)
             {
@@ -144,8 +144,8 @@ namespace ResearchProjectManagement_SE182642
                 return;
             }
 
-            DateOnly startDate = DateOnly.Parse(startDateText);
-            DateOnly endDate = DateOnly.Parse(endDateText);
+            DateOnly startDate = DateOnly.FromDateTime(startDateValue.Value);
+            DateOnly endDate = DateOnly.FromDateTime(endDateValue.Value);
 
             if (startDate >= endDate)
             {
@@ -220,8 +220,8 @@ namespace ResearchProjectManagement_SE182642
             {
                 txtProjectTitle.Text = researchProject.ProjectTitle;
                 txtResearchField.Text = researchProject.ResearchField;
-                txtStartDate.Text = researchProject.StartDate.ToString("M/d/yyyy");
-                txtEndDate.Text = researchProject.EndDate.ToString("M/d/yyyy");
+                dpStartDate.SelectedDate = researchProject.StartDate.ToDateTime(TimeOnly.MinValue);
+                dpEndDate.SelectedDate = researchProject.EndDate.ToDateTime(TimeOnly.MinValue);
                 cbxFullName.SelectedValue = researchProject.LeadResearcherId;
                 txtBudget.Text = researchProject.Budget.ToString();
             }
