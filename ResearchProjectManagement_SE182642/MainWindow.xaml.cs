@@ -50,9 +50,11 @@ namespace ResearchProjectManagement_SE182642
             if(dgResearchProject.SelectedItem is ResearchProject researchProject)
             {
                 var result = MessageBox.Show($"Are you sure you want to delete?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                _researchProjectService.DeleteResearchProject(researchProject);
-                LoadResearchProject();
-         
+                if (result == MessageBoxResult.Yes)
+                {
+                    _researchProjectService.DeleteResearchProject(researchProject);
+                    LoadResearchProject();
+                }
             }
         }
 
@@ -90,12 +92,29 @@ namespace ResearchProjectManagement_SE182642
                 return;
             }
 
-            char firstChar = projectTitle[0];
-            if (!char.IsUpper(firstChar) && !char.IsDigit(firstChar))
+            string[] words = projectTitle.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string word in words)
             {
-                MessageBox.Show("ProjectTitle must start with a capital letter or a digit (1-9).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                char firstChar = word[0];
+                bool isUpper = char.IsUpper(firstChar);
+                bool isDigit = char.IsDigit(firstChar) && firstChar != '0';
+
+                if (!isUpper && !isDigit)
+                {
+                    MessageBox.Show("Each word in ProjectTitle must start with a capital letter or a digit (1-9).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
             }
+
+            //char firstChar = projectTitle[0];
+            //bool isUpper = char.IsUpper(firstChar);
+            //bool isDigit = char.IsDigit(firstChar) && firstChar != '0';
+            //if (!isUpper && !isDigit)
+            //{
+            //    MessageBox.Show("ProjectTitle must start with a capital letter or a digit (1-9).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //    return;
+            //}
 
             char[] invalidChars = new[] { '$', '%', '^', '@' };
             foreach (char c in invalidChars)
@@ -159,12 +178,29 @@ namespace ResearchProjectManagement_SE182642
                 return;
             }
 
-            char firstChar = projectTitle[0];
-            if (!char.IsUpper(firstChar) && !char.IsDigit(firstChar))
+            string[] words = projectTitle.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string word in words)
             {
-                MessageBox.Show("ProjectTitle must start with a capital letter or a digit (1-9).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                char firstChar = word[0];
+                bool isUpper = char.IsUpper(firstChar);
+                bool isDigit = char.IsDigit(firstChar) && firstChar != '0';
+
+                if (!isUpper && !isDigit)
+                {
+                    MessageBox.Show("Each word in ProjectTitle must start with a capital letter or a digit (1-9).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
             }
+
+            //char firstChar = projectTitle[0];
+            //bool isUpper = char.IsUpper(firstChar);
+            //bool isDigit = char.IsDigit(firstChar) && firstChar != '0';
+            //if (!isUpper && !isDigit)
+            //{
+            //    MessageBox.Show("ProjectTitle must start with a capital letter or a digit (1-9).", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //    return;
+            //}
 
             char[] invalidChars = new[] { '$', '%', '^', '@' };
             foreach (char c in invalidChars)

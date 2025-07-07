@@ -31,7 +31,7 @@
         <TextBox x:Name="txtEmail"/>
 
         <Label Content="Password:"/>
-        <PasswordBox x:Name="txtPassword"/>
+        <PasswordBox x:Name="txtPassword" Background="#FFFFF8EB"/>
 
         <Button Content="Login" Click="Button_Click" />
     </StackPanel>
